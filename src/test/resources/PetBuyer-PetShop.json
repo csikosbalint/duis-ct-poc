@@ -1,0 +1,37 @@
+{
+    "provider": {
+        "name": "PetShop"
+    },
+    "consumer": {
+        "name": "PetBuyer"
+    },
+    "interactions": [
+        {
+            "providerState": "a pet store with pets",
+            "description": "retrieve a pet from the shop",
+            "request": {
+                "method": "GET",
+                "path": "/v2/pet/1",
+                "headers": {
+                    "Accept": "application/xml, text/xml, application/xhtml+xml"
+                },
+                "body": null
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/xml"
+                },
+                "body": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><Pet><category><id>1</id><name>string</name></category><id>1</id><name>doggie</name><photoUrls><photoUrl>string</photoUrl></photoUrls><status>available</status><tags><tag><id>0</id><name>string</name></tag></tags></Pet>"
+            }
+        }
+    ],
+    "metadata": {
+        "pact-specification": {
+            "version": "2.0.0"
+        },
+        "pact-jvm": {
+            "version": "3.2.7"
+        }
+    }
+}

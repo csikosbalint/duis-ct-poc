@@ -1,0 +1,31 @@
+{
+    "provider": {
+        "name": "PetShop"
+    },
+    "consumer": {
+        "name": "ConsumerClient"
+    },
+    "interactions": [
+        {
+            "providerState": "State: unlimited pets",
+            "description": "retrieve a cica from the shop",
+            "request": {
+                "method": "GET",
+                "path": "/v1/cica/1",
+                "body": null
+            },
+            "response": {
+                "status": 200,
+                "body": "cica"
+            }
+        }
+    ],
+    "metadata": {
+        "pact-specification": {
+            "version": "2.0.0"
+        },
+        "pact-jvm": {
+            "version": "3.2.7"
+        }
+    }
+}

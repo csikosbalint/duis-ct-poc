@@ -8,41 +8,37 @@ import org.apache.commons.collections.map.HashedMap;
 import org.junit.Rule;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * Created by johnnym on 5/23/16.
- */
+import static org.junit.Assert.assertEquals;
+
 public class ConsumerTest {
 
-    private static final int MOCK_PORT = 1234;
-    @Rule
-    public PactProviderRule provider = new PactProviderRule("PetShop", "localhost", MOCK_PORT, this);
-    private int petId = 1;
+    private static final int PORT = 8080;
+    private static final String CICA = "cica";
+    private static final String PATH = "/v1/cica/";
+    private int cicaId = 1;
 
-    @Pact(provider = "PetShop", consumer = "PetBuyer")
+    @Rule
+    public PactProviderRule provider = new PactProviderRule("PetShop", "localhost", PORT, this);
+
+    @Pact(consumer = "ConsumerClient")
     public PactFragment configurationFragment(PactDslWithProvider builder) {
         return builder
-                .given("a pet store with pets")
-                .uponReceiving("retrieve a pet from the shop")
-
-                    .path("/v2/pet/" + petId )
+                .given("State: unlimited pets")
+                .uponReceiving("retrieve a cica from the shop")
+                    .path(PATH + cicaId)
                     .method("GET")
-                    .headers(MapUtils.putAll(new HashedMap(), new String[]{"Accept","application/xml, text/xml, application/xhtml+xml"}))
                 .willRespondWith()
                     .status(200)
-                    .headers(MapUtils.putAll(new HashedMap(), new String[]{"Content-Type", "application/xml"}))
-                    .body("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><Pet><category><id>1</id><name>string</name></category><id>1</id><name>doggie</name><photoUrls><photoUrl>string</photoUrl></photoUrls><status>available</status><tags><tag><id>0</id><name>string</name></tag></tags></Pet>")
+                    .body(CICA)
         .toFragment();
     }
 
-    @PactVerification("PetShop")
     @Test
-    public void main() throws Exception {
-        Consumer petConsumer = new Consumer();
-        System.out.println("--- TEST ---");
-        petConsumer.getPet("http://localhost:" + MOCK_PORT +"/v2/pet/" + petId);
-        System.out.println("--- TEST ---");
+    @PactVerification
+    public void runTest() {
+        assertEquals(CICA, new ConsumerClient().get("http://localhost:" + PORT + PATH + cicaId));
     }
-
 }

@@ -12,6 +12,14 @@
     <artifactId>test</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+
     <dependencies>
         <!--CONSUMER-->
         <dependency>
@@ -47,11 +55,16 @@
         <!--SERVER-->
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
+                <groupId>com.github.warmuuh</groupId>
+                <artifactId>pactbroker-maven-plugin</artifactId>
+                <version>0.0.7</version>
                 <configuration>
-                    <goal>cica</goal>
+                    <brokerUrl>http://172.17.0.4</brokerUrl>
+                    <pacts>target/pacts</pacts>
                 </configuration>
+                <executions><execution>
+                    <goals><goal>upload-pacts</goal></goals>
+                </execution></executions>
             </plugin>
         </plugins>
     </build>

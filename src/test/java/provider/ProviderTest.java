@@ -3,7 +3,9 @@ package provider;
 import au.com.dius.pact.provider.junit.PactRunner;
 import au.com.dius.pact.provider.junit.State;
 import au.com.dius.pact.provider.junit.TargetRequestFilter;
+import au.com.dius.pact.provider.junit.loader.PactBroker;
 import au.com.dius.pact.provider.junit.loader.PactFolder;
+import au.com.dius.pact.provider.junit.loader.PactSource;
 import au.com.dius.pact.provider.junit.target.HttpTarget;
 import au.com.dius.pact.provider.junit.target.Target;
 import au.com.dius.pact.provider.junit.target.TestTarget;
@@ -14,7 +16,10 @@ import au.com.dius.pact.provider.junit.Provider;
 
 @RunWith(PactRunner.class)
 @Provider("PetShop")
-@PactFolder("pacts")
+//@PactFolder("pacts")
+//@PactSource(GitPactLoader.class)
+//@Git("http://myhost/pacts")
+@PactBroker(host = "172.17.0.4", port = "80")
 public class ProviderTest {
 
     @TestTarget
